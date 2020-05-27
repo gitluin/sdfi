@@ -1,0 +1,27 @@
+# Provide autocompletion for sdfi based on the .confs that exist in WPADIR
+
+_sdfi(){
+	WPADIR="/etc/wpa_supplicant/"
+
+	local CUR PREV opts
+	COMPREPLY=()
+	CUR="${COMP_WORDS[COMP_CWORD]}"
+	PREV="${COMP_WORDS[COMP_CWORD-1]}"
+	
+	# Generate opts using the WPADIR
+	i=0
+	declare -A CONFIGLIST
+	while read line; do
+		test "$line" = "wpa_supplicant.conf" && continue	
+
+		# Trim .conf
+		CONFIGLIST[ $i ]="$(echo $line cut -d'.' -f1)"
+		i=$(( $i + 1 ))
+	done < <(ls "$WPADIR")
+
+	opts="${CONFIGLIST[@]}"
+
+	COMPREPLY=( $(compgen -W "${opts}" -- ${CUR}) )
+	return 0
+}
+complete -F _sdfi sdfi
