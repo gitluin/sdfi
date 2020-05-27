@@ -15,7 +15,7 @@ _sdfi(){
 		test "$line" = "wpa_supplicant.conf" && continue	
 
 		# Trim .conf
-		CONFIGLIST[ $i ]="$(echo $line cut -d'.' -f1)"
+		CONFIGLIST[ $i ]="$(echo $line | cut -d'.' -f1)"
 		i=$(( $i + 1 ))
 	done < <(ls "$WPADIR")
 
@@ -24,4 +24,4 @@ _sdfi(){
 	COMPREPLY=( $(compgen -W "${opts}" -- ${CUR}) )
 	return 0
 }
-complete -F _sdfi sdfi
+complete -F _sdfi sdfi.sh

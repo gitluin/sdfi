@@ -15,7 +15,7 @@ Installation and Usage
 -----
 * Clone this repository: `git clone https://github.com/gitluin/sdfi.git`.
 * Copy or link `sdfi.sh` in `/usr/local/bin/`.
-* Copy or link `sdfi_comp` in `/etc/bash_completion.d/` for bash tab completion.
+* Copy or link `sdfi_comp` in `/etc/bash_completion.d/` for `bash` tab completion.
 * Use `sdfi.sh` at the shell prompt!
 * Have sudo rights without password confirmation for speedier usage, or be okay with typing your password a few times.
 * If you don't use any of my other software like `sbar`, remove the `sbar_network.sh` call at the end of `sdfi.sh`.
