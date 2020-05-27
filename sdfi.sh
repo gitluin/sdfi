@@ -1,5 +1,7 @@
 #!/bin/sh
 
+INTERFACE="wlp2s0"
+
 # Pass the network and the PSK, properly cased
 Add () {
 	TMPFILE=~/.sdfi_tmpadd.txt
@@ -23,7 +25,7 @@ Add () {
 Connect () {
 	test -z "$1" && exit 0
 	echo "Starting new connection to $1"
-	sudo wpa_supplicant -B -i wlp2s0 -c "/etc/wpa_supplicant/$1.conf"
+	sudo wpa_supplicant -B -i "$INTERFACE" -c "/etc/wpa_supplicant/$1.conf"
 	sleep 5
 	sudo dhcpcd
 }
