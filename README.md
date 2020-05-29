@@ -2,7 +2,7 @@ Some Dumb wiFI tool
 =====
 What Is, Why Do
 -------
-sdfi is a tool I wrote because `NetworkManager` went berserk when I tried to use it once. This is just a simple wrapper for `wpa_supplicant` and `dhcpcd`.
+`sdfi` is a tool I wrote because `NetworkManager` went berserk when I tried to use it once. This is just a simple wrapper for `wpa_supplicant` and `dhcpcd`.
 
 Features
 -----

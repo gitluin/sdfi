@@ -73,6 +73,7 @@ case "$1" in
 	-r | --reconnect)
 		Disconnect 3
 		NETWORK="$2"
+		Connect "$NETWORK"
 		;;
 	*)
 
