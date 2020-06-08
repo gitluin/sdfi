@@ -1,6 +1,6 @@
 #!/bin/sh
 
-INTERFACE="wlp2s0"
+test -z "$INTERFACE" && INTERFACE="wlp2s0"
 
 # Pass the network and the PSK, properly cased
 Add () {
@@ -33,23 +33,27 @@ Connect () {
 # Pass seconds to sleep and message to print
 Disconnect () {
 	sudo pkill wpa_supplicant
-	sudo pkill dhcpcd
+	sudo pkill -9 dhcpcd
 	sleep "$1"
 	echo "Successfully disconnected"
 }
 
 Usage () {
 	echo "Usage: sdfi [Action] [network name] [psk]"
+	echo "Simple interface to wpa_supplicant and dhcpcd."
+	echo "Set \$INTERFACE to a default in this script, ~/.bashrc, or"
+	echo "  somewhere else before using."
+	echo "If no actions are provided, will connect to the provided,"
+	echo "  pre-configured network."
 	echo
 	echo "Actions:"
-	echo "  If no actions are provided, connect to the provided network."
-	echo "  -c, --connect is here for completeness."
-	echo
 	echo "  -h, --help		Show this help."
 	echo "  -a, --add		Add a network with passcode psk."
-	echo "  -c, --connect		Connect to new network. Provide name in lowercase, spaces as underscores."
+	echo "  -c, --connect		Connect to new network. Provide name"
+	echo "				  in lowercase, spaces as underscores."
 	echo "  -d, --disconnect	Disconnect from current network."
-	echo "  -r, --reconnect	Disconnect from current network, connect to new network." # tabs >:(
+	echo "  -r, --reconnect	Disconnect from current network, connect to"
+	echo "				  new network." # tabs >:(
 }
 
 case "$1" in
@@ -73,12 +77,13 @@ case "$1" in
 	-r | --reconnect)
 		Disconnect 3
 		NETWORK="$2"
-		Connect "$NETWORK"
+		test -z "$NETWORK" || Connect "$NETWORK"
+		break
 		;;
 	*)
-
-	test -z "$NETWORK" && NETWORK="$1"
-	test -z "$NETWORK" || Connect "$NETWORK"
+		Usage
+		exit -1
 esac
 
+# For users of my sbar shell scripts
 /usr/local/bin/sbar_network.sh
