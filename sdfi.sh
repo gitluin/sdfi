@@ -23,7 +23,7 @@ Add () {
 
 # Pass the network as an argument - all lowercase, per the config file
 Connect () {
-	test -z "$1" && exit 0
+	# TODO: get ssid
 	echo "Starting new connection to $1"
 	sudo wpa_supplicant -B -i "$INTERFACE" -c "/etc/wpa_supplicant/$1.conf"
 	sleep 5
@@ -84,6 +84,3 @@ case "$1" in
 		Usage
 		exit -1
 esac
-
-# For users of my sbar shell scripts
-/usr/local/bin/sbar_network.sh
